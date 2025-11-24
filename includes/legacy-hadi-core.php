@@ -6,11 +6,11 @@
  * Author: gruner.digital
  * Requires at least: 6.0
  * Requires PHP: 7.4
- */
+ 
 
 if (!defined('ABSPATH')) exit;
 
-/** ==== NASTAVENÍ (změň podle potřeby) ==== */
+/** ==== NASTAVENÍ (změň podle potřeby) ==== 
 define('HADI_PT',        'had');         // post type
 define('HADI_TAX',       'genotyp-hada');   // taxonomie
 define('HADI_MENU_TEXT', 'Dostupní hadi'); // přesný text placeholderu v menu
@@ -18,11 +18,11 @@ define('HADI_ALL_PAGE',  'hadi');        // slug stránky s přehledem všech ha
 define('HADI_POPTV_SLUG','poptavka');    // slug stránky Poptávka (pro tlačítko)
 /** ======================================= */
 
-/** Cesta pluginu */
+/** Cesta pluginu 
 define('HADI_CORE_PATH', plugin_dir_path(__FILE__));
 define('HADI_CORE_URL',  plugin_dir_url(__FILE__));
 
-/* ========== ACF kontrola ========== */
+/* ========== ACF kontrola ========== 
 add_action('admin_init', function () {
   if (!class_exists('ACF')) {
     add_action('admin_notices', function () {
@@ -31,7 +31,7 @@ add_action('admin_init', function () {
   }
 });
 
-/* ========== Helper: cena ========== */
+/* ========== Helper: cena ========== 
 if (!function_exists('had_format_price')) {
   function had_format_price($value, $suffix = ' Kč') {
     if ($value === '' || $value === null) return '';
@@ -40,7 +40,7 @@ if (!function_exists('had_format_price')) {
 }
 
 
-/* ========== ADMIN UI (jen pro CPT „had“) ========== */
+/* ========== ADMIN UI (jen pro CPT „had“) ========== 
 add_action('admin_head', function() {
   global $post;
   if ($post && $post->post_type === HADI_PT) {
@@ -67,9 +67,9 @@ add_action('wp_enqueue_scripts', function() {
         '1.0.0'
     );
 });
+*/
 
-
-/* ========== Shortcode [nabidka_hadu] ========== */
+/* ========== Shortcode [nabidka_hadu] ========== 
 add_shortcode('nabidka_hadu', function($atts){
   $a = shortcode_atts([
     'per_page'   => 12,             // kolik karet
@@ -145,14 +145,14 @@ $img_html = '';
 $img_id   = 0;
 $img_url  = '';
 
-/* 1) Featured image */
+/* 1) Featured image 
 if (has_post_thumbnail($id)) {
     $img_id   = get_post_thumbnail_id($id);
     $img_html = get_the_post_thumbnail($id, 'large', ['class' => 'had-card__img']);
     $img_url  = wp_get_attachment_url($img_id);
 }
 
-/* 2) ACF / META, pokud není thumbnail */
+/* 2) ACF / META, pokud není thumbnail 
 if (!$img_html) {
     $acf_image_fields = ['obrazek','foto','image','fotka','hlavni_obrazek'];
     foreach ($acf_image_fields as $field_key) {
@@ -193,7 +193,7 @@ if (!$img_html) {
     }
 }
 
-/* 3) BETHEME LIGHTBOX WRAP */
+/* 3) BETHEME LIGHTBOX WRAP 
 if ($img_html && $img_url) {
     $img_html =
         '<a href="' . esc_url($img_url) . '#' . intval($id) . '" 
@@ -204,7 +204,7 @@ if ($img_html && $img_url) {
         '</a>';
 }
 
-/* 4) Placeholder */
+/* 4) Placeholder 
 if (!$img_html) {
     $img_html = '<div class="had-card__img had-card__img--ph"></div>';
 }
@@ -364,8 +364,10 @@ if ($poptavka_p) {
   return ob_get_clean();
 });
 
-/* ========== Archiv taxonomie ========== */
-/* Vrství šablonu pro /druh-hada/slug/ tak, aby použila [nabidka_hadu] se stejným vzhledem. */
+*/
+	
+/* ========== Archiv taxonomie ========== 
+/* Vrství šablonu pro /druh-hada/slug/ tak, aby použila [nabidka_hadu] se stejným vzhledem. 
 add_filter('template_include', function ($template) {
   if (is_tax(HADI_TAX)) {
     $tpl = HADI_CORE_PATH . 'templates/hadi-archive.php';
@@ -373,10 +375,10 @@ add_filter('template_include', function ($template) {
   }
   return $template;
 });
-
+*/
 /* ========== Dynamické menu: „Hadi (auto)“ → jen kategorie ========== */
 
-/** helper – syntetická položka menu */
+/** helper – syntetická položka menu 
 function hadi_menu_make_item($title, $url, $parent_id = 0) {
   $o = new stdClass();
   $o->ID               = -abs(crc32($title.$url.mt_rand()));
@@ -398,8 +400,8 @@ function hadi_menu_make_item($title, $url, $parent_id = 0) {
   $o->current_item_parent   = false;
   return $o;
 }
-
-/** zjisti term_id menu pro cache */
+*/
+/** zjisti term_id menu pro cache 
 function hadi_menu_get_menu_term_id($args) {
   if (!empty($args->menu) && is_object($args->menu) && isset($args->menu->term_id)) return intval($args->menu->term_id);
   if (!empty($args->menu) && is_numeric($args->menu)) return intval($args->menu);
@@ -410,7 +412,7 @@ function hadi_menu_get_menu_term_id($args) {
   return 0;
 }
 
-/** sestav položky termů s cache */
+/** sestav položky termů s cache 
 function hadi_menu_build_term_items_cached($menu_term_id, $parent_id) {
   $cache_key = "hadi_menu_terms_{$menu_term_id}";
   $cached = get_transient($cache_key);
@@ -461,7 +463,7 @@ function hadi_menu_build_term_items_cached($menu_term_id, $parent_id) {
   return $items;
 }
 
-/** invalidace cache při změnách */
+/** invalidace cache při změnách 
 function hadi_menu_flush_cache_all() {
   $menus = wp_get_nav_menus();
   foreach ($menus as $m) {
@@ -528,7 +530,7 @@ add_filter('wp_nav_menu_objects', function ($items, $args) {
 }, 10, 2);
 
 
-/* ========== Aktivace – vytvoření šablony, flush rewrite (pro jistotu) ========== */
+/* ========== Aktivace – vytvoření šablony, flush rewrite (pro jistotu) ========== 
 register_activation_hook(__FILE__, function () {
   // vytvoř šablonu pokud chybí
   $tpl_dir = HADI_CORE_PATH . 'templates';
@@ -586,7 +588,7 @@ function hadi_render_settings_page(){ ?>
 
 /*************************************************************
  * ADMIN: Sloupec "ID" pro CPT Hadi + zobrazení ID v editoru
- *************************************************************/
+ ************************************************************
 
 // 1) Přidání sloupce ID do seznamu hadů
 add_filter('manage_' . HADI_PT . '_posts_columns', function($columns) {
@@ -625,7 +627,7 @@ add_action('edit_form_after_title', function($post) {
 
 /*************************************************************
  * ADMIN: Skrýt Betheme live-edit tlačítko jen u hadů
- *************************************************************/
+ ************************************************************
 add_action('admin_head-post.php',     'had_hide_betheme_button');
 add_action('admin_head-post-new.php', 'had_hide_betheme_button');
 
@@ -647,7 +649,7 @@ function had_hide_betheme_button() {
 /*************************************************************
  * LIVE doplnění symbolu pohlaví (♂ / ♀) do názvu hada
  * – bere hodnotu z ACF pole "pohlavi" (samec / samice / neznamo)
- *************************************************************/
+ ************************************************************
 add_action('admin_footer-post.php',     'had_live_gender_symbol_title_js');
 add_action('admin_footer-post-new.php', 'had_live_gender_symbol_title_js');
 
@@ -727,7 +729,7 @@ function had_live_gender_symbol_title_js() {
     </script>
     <?php
 }
-
+*/
 /*************************************************************
  * Taxonomie: Pohlaví u genotypu hada (dropdown + symbol v názvu)
  *************************************************************/
@@ -735,17 +737,17 @@ function had_live_gender_symbol_title_js() {
 /**
  * Pomocná funkce – vrátí slug taxonomie pro genotyp hada.
  * Pokud používáš konstantu HADI_TAX, použijeme ji, jinak fallback na 'genotyp-hada'.
- */
+
 function had_get_tax_slug() {
     if (defined('HADI_TAX')) {
         return HADI_TAX;
     }
     return 'genotyp-hada';
 }
-
+ */
 /**
  * 1) Pole Pohlaví na obrazovce "Přidat nový termín"
- */
+ 
 add_action( had_get_tax_slug() . '_add_form_fields', function() {
     ?>
     <div class="form-field term-pohlavi-wrap">
@@ -763,7 +765,7 @@ add_action( had_get_tax_slug() . '_add_form_fields', function() {
 
 /**
  * 2) Pole Pohlaví na obrazovce "Upravit termín"
- */
+ 
 add_action( had_get_tax_slug() . '_edit_form_fields', function($term) {
     $value = get_term_meta($term->term_id, 'term_pohlavi', true);
     ?>
@@ -784,7 +786,7 @@ add_action( had_get_tax_slug() . '_edit_form_fields', function($term) {
 
 /**
  * 3) Uložení hodnoty při vytvoření/upravení termu
- */
+ 
 add_action( 'created_' . ( defined('HADI_TAX') ? HADI_TAX : 'genotyp-hada' ), function($term_id) {
     if (isset($_POST['term_pohlavi'])) {
         $v = sanitize_text_field($_POST['term_pohlavi']);
@@ -801,7 +803,7 @@ add_action( 'edited_' . ( defined('HADI_TAX') ? HADI_TAX : 'genotyp-hada' ), fun
 
 /**
  * 4) Úprava zobrazovaného názvu termu – přidání symbolu
- */
+ 
 add_filter('term_name', function($name, $term) {
     if (!$term || $term->taxonomy !== had_get_tax_slug()) {
         return $name;

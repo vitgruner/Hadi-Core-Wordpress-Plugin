@@ -20,3 +20,13 @@
     }
 
     require_once HADI_CORE_PATH . 'includes/legacy-hadi-core.php';
+	require_once HADI_CORE_PATH . 'includes/constants.php';
+	require_once HADI_CORE_PATH . 'includes/helpers.php';
+	require_once HADI_CORE_PATH . 'includes/shortcode-hadi.php';
+	require_once HADI_CORE_PATH . 'includes/admin-ui.php';
+	require_once HADI_CORE_PATH . 'includes/taxonomy-gender.php';
+	require_once HADI_CORE_PATH . 'includes/archive-hadi.php'; 
+	require_once HADI_CORE_PATH . 'includes/menu-hadi.php';
+    require_once HADI_CORE_PATH . 'includes/admin-id-hadi.php';
+	require_once HADI_CORE_PATH . 'includes/admin-gender-title-hadi.php';
+
