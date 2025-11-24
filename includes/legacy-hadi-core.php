@@ -735,14 +735,14 @@ function had_live_gender_symbol_title_js() {
 /**
  * Pomocná funkce – vrátí slug taxonomie pro genotyp hada.
  * Pokud používáš konstantu HADI_TAX, použijeme ji, jinak fallback na 'genotyp-hada'.
- */
+
 function had_get_tax_slug() {
     if (defined('HADI_TAX')) {
         return HADI_TAX;
     }
     return 'genotyp-hada';
 }
-
+ */
 /**
  * 1) Pole Pohlaví na obrazovce "Přidat nový termín"
  */
