@@ -1,4 +1,4 @@
-    <?php
+
     <?php
 /**
  * Plugin Name: Hadi – jádro (shortcode, menu, archiv)

@@ -69,6 +69,10 @@ add_action('wp_enqueue_scripts', function() {
 });
 */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ab9b4cb12286f354ccc005d510beae924c0bc0a7
 /* ========== Shortcode [nabidka_hadu] ========== 
 add_shortcode('nabidka_hadu', function($atts){
   $a = shortcode_atts([
@@ -366,8 +370,13 @@ if ($poptavka_p) {
 
 */
 	
+<<<<<<< HEAD
 /* ========== Archiv taxonomie ========== 
 /* Vrství šablonu pro /druh-hada/slug/ tak, aby použila [nabidka_hadu] se stejným vzhledem. 
+=======
+/* ========== Archiv taxonomie ========== */
+/* Vrství šablonu pro /druh-hada/slug/ tak, aby použila [nabidka_hadu] se stejným vzhledem. */
+>>>>>>> ab9b4cb12286f354ccc005d510beae924c0bc0a7
 add_filter('template_include', function ($template) {
   if (is_tax(HADI_TAX)) {
     $tpl = HADI_CORE_PATH . 'templates/hadi-archive.php';
