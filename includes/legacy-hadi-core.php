@@ -69,7 +69,7 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 
-/* ========== Shortcode [nabidka_hadu] ========== */
+/* ========== Shortcode [nabidka_hadu] ========== 
 add_shortcode('nabidka_hadu', function($atts){
   $a = shortcode_atts([
     'per_page'   => 12,             // kolik karet
@@ -364,6 +364,8 @@ if ($poptavka_p) {
   return ob_get_clean();
 });
 
+*/
+	
 /* ========== Archiv taxonomie ========== */
 /* Vrství šablonu pro /druh-hada/slug/ tak, aby použila [nabidka_hadu] se stejným vzhledem. */
 add_filter('template_include', function ($template) {
